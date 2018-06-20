@@ -17,8 +17,8 @@ showLines s = do
 	showLines (tail s)
 
 {-Exibe mensagem inicial do jogo-}
-showEnterDialog :: IO ()
-showEnterDialog = do
+tela_principal :: IO ()
+tela_principal = do
 	cont <- readFile ".msg"
 	showLines (take 21 (lines cont))
 

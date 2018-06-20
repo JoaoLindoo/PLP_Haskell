@@ -5,6 +5,15 @@ import qualified Data.Map as Map
 {- --------------------------------------------
    Funções de interação com terminal
    ---------------------------------------------}
+{- Representa um Jogador com o seu tabuleiro -}
+data Jogador =
+    Jogador
+    Tabuleiro
+    Bombas
+{-Tabuleiro-}
+type Tabuleiro = Map (Int,Int) Char
+{- Bombas de lançamento -}
+type Bombas = Int
 
 {-Comando para dar scape no terminal-}
 cleanScreen :: IO()
@@ -30,6 +39,7 @@ main = do
     putStrLn "Bem Vindo ao ano começo do fim , a gasolina está acabando e o mundo também só você poderá salva-lo e deter o virus mortal"
     putStrLn "Baseado em uma historia real. Se voce nao lembra foi por que o mundo ja foi salvo e sua linha do tempo mudou"
     putStrLn "[1] Pronto para a simulação :"
+   
     a <- getLine
     
     if(a == "1")

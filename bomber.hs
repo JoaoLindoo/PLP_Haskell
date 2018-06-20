@@ -23,11 +23,7 @@ tela_principal = do
 	cont <- readFile ".msg"
 	showLines (take 21 (lines cont))
 
-entrada :: IO()
-entrada = do
-    a <- getLine
-    putStrLn ("oi " ++ a)
-    
+{- Main -}    
 main :: IO()
 main = do
     tela_principal
@@ -38,5 +34,5 @@ main = do
     
     if(a == "1")
         then putStrLn "Inicia o jogo"
-        else putStrLn "FIM DO MUNDO"
-   
+        else putStrLn "------------------\n FIM DO MUNDO !\n------------------"
+            

@@ -1,6 +1,7 @@
 import Data.Map (Map, (!))
 import qualified Data.Map as Map
 
+-- Author joao.soares
 {- --------------------------------------------
    Funções de interação com terminal
    ---------------------------------------------}
@@ -22,4 +23,9 @@ tela_principal = do
 	cont <- readFile ".msg"
 	showLines (take 21 (lines cont))
 
-
+main :: IO()
+main = do
+    tela_principal
+    putStrLn "[1] Pronto para a simulação :"
+    
+   

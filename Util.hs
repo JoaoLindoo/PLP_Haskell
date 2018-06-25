@@ -1,3 +1,5 @@
+module Util where 
+
 {-Caracter que representa partes das bases inimigas -}
 base :: Char
 base = '⊡'

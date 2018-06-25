@@ -2,7 +2,7 @@ import Data.Map (Map, (!))
 import qualified Data.Map as Map
 import Data.Array
 import System.Random
--- Author joao.soares
+import Interacao
 {- --------------------------------------------
    Funções de interação com terminal
    ---------------------------------------------}
@@ -30,22 +30,6 @@ numeroRan :: Int -> Int -> IO Int
 numeroRan v1 v2 = do
 	nR <- randomRIO(v1, v2::Int)
 	return (nR)
-{-Comando para dar scape no terminal-}
-cleanScreen :: IO()
-cleanScreen = putStr "\ESC[2J"
-
-{-Imprime as strings de uma lista de string-}
-showLines :: [String] -> IO()
-showLines [] = return ()
-showLines s = do 
-	putStrLn (head s)
-	showLines (tail s)
-
-{-Exibe mensagem inicial do jogo-}
-tela_principal :: IO ()
-tela_principal = do
-	cont <- readFile ".msg"
-	showLines (take 21 (lines cont))
 
 {- Main -}    
 main :: IO()
@@ -59,5 +43,5 @@ main = do
     
     if(a == "1")
         then putStrLn "Inicia o jogo"
-        else putStrLn "------------------\n FIM DO MUNDO !\n------------------"
+        else showDerrota
             

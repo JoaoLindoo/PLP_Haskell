@@ -28,3 +28,4 @@ showVitoria :: IO()
 showVitoria = do
 	cont <- readFile ".msg"
 	showLines (take 40 (drop 38 (lines cont)))
+

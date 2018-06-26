@@ -17,9 +17,6 @@ baseBMT = 'o'
 baseBPC :: Char
 baseBPC = '*'
 
-{-Caracter que representa partes das bases inimigas -}
-base :: Char
-base = '⊡'
 
 {-Caracter que representa Terreno-}
 terreno :: Char
@@ -29,9 +26,6 @@ terreno = '_'
 wShot :: Char
 wShot = 'X'
 
-{-Tiro em Base Inimiga-}
-sShot :: Char
-sShot = '☠'
 
 {- --------------------------------------------
    Funções de número aleatório
@@ -77,7 +71,9 @@ vertical :: Char
 vertical = 'v'
 
 showPosicao :: Int -> String
-showPosicao n | n == 0 = show(terreno)
-				| ((n == 1) || (n == 2) || (n == 3) || (n == 4))  = show(base)
-				| n == -1 = show(wShot)
-				| n ==7 = show(sShot)
+showPosicao n | n == 0 = " "
+				| n == 1 = show(baseCT)
+				| n == 2 = show(baseIAPA)
+				| n == 3 = show(baseBMT)
+				| n == 4 = show(baseBPC)
+

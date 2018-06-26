@@ -62,3 +62,9 @@ baseSize = (+1)
 {-Orientação da base no tabuleiro-}
 vertical :: Char
 vertical = 'v'
+
+showPosicao :: Int -> String
+showPosicao n | n == 0 = show(terreno)
+				| ((n == 1) || (n == 2) || (n == 3) || (n == 4))  = show(base)
+				| n == -1 = show(wShot)
+				| n ==7 = show(sShot)

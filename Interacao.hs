@@ -1,6 +1,7 @@
 module Interacao where
 import Util
-import Data.Map (Map, (!))
+import Data.Array
+{--import Data.Map (Map, (!))--}
 import qualified Data.Map as Map
 
 {-Comando para dar scape no terminal-}
@@ -35,3 +36,13 @@ showVitoria :: IO()
 showVitoria = do
 	cont <- readFile ".msg"
 	showLines (take 40 (drop 38 (lines cont)))
+
+
+{-Retorna a string com a visão do usuário do
+  tabuleiro-}
+showTabuleiro :: Array (Int,Int) Int -> Int -> Int -> String
+showTabuleiro m i j |(j == 1)&&(i < 10) = show(i)++" |" ++ (showPosicao (m ! (i,j))) ++ showTabuleiro m i (j+1)
+					|(j == 1)&&(i >= 10)&&(i <= 12) = show(i)++"|" ++ (showPosicao (m ! (i,j))) ++ showTabuleiro m i (j+1)
+					|(j > 1)&&(j < 12)&&(i <= 12) = "|" ++ (showPosicao (m ! (i,j))) ++ showTabuleiro m i (j+1) 
+					|(j == 12)&&(i < 12) = "|" ++ (showPosicao (m ! (i,j))) ++"|" ++ "\n" ++ showTabuleiro m (i+1) 1
+					| (j== 12)&&(i == 12) = "|"++(showPosicao (m ! (i,j)))++"|"

@@ -1,7 +1,6 @@
 import Data.Map (Map, (!))
 import qualified Data.Map as Map
 import Data.Array
-import System.Random
 import Interacao
 {- --------------------------------------------
    Funções de interação com terminal

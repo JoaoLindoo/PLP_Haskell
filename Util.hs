@@ -4,6 +4,19 @@ import qualified Data.Map as Map
 import System.Random
 import Data.Char
 
+
+baseCT :: Char
+baseCT = '@'
+
+baseIAPA :: Char
+baseIAPA = '#'
+
+baseBMT :: Char
+baseBMT = 'o'
+
+baseBPC :: Char
+baseBPC = '*'
+
 {-Caracter que representa partes das bases inimigas -}
 base :: Char
 base = '⊡'

@@ -64,6 +64,16 @@ jogador1 = criarJogador 12 12
 {-Variavel que representar o jogado com tabuleiro vazio (apenas zero) e com 45 bombas para se jogar-}
 jogador_base = criarJogador 45
 
+{--alocar base na vertical de tamanho maior que 1--}
+alocarBaseVertical ::  Array (Int,Int) Int -> Int -> Int -> Int -> Int -> Int -> Array (Int,Int) Int
+alocarBaseVertical m linha coluna valor tamanho count | (not(tamanho == count)) = alocarBaseVertical (atualizarTabuleiro m linha coluna valor) (linha + 1) coluna valor tamanho (count+1)
+													  | otherwise = m
+
+{--alocar base na horizontal de tamanho maior que 1--}
+alocarBaseHorizontal :: Array (Int,Int) Int -> Int -> Int -> Int -> Int -> Int -> Array (Int,Int) Int
+alocarBaseHorizontal m linha coluna valor tamanho count | (not(tamanho == count)) = alocarBaseHorizontal (atualizarTabuleiro m linha coluna valor) linha (coluna + 1) valor tamanho (count+1)
+													    | otherwise = m
+
 {-atualiza o valor no tabuleiro do jogador (atualizacao feita a partir de uma soma), informando o numero da linha e coluna-}
 atualizarTabuleiro :: Array (Int,Int) Int -> Int -> Int -> Int -> Array (Int,Int) Int
 atualizarTabuleiro m linha coluna valor = accum (+) m [((linha,coluna), valor)]

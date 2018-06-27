@@ -15,27 +15,33 @@ data Jogador = Jogador {tabuleiro :: Array (Int,Int) Int, bombas :: Int, pontuac
 criarMatrizZero :: Int -> Int -> Array (Int,Int) Int
 criarMatrizZero x n = array ((1,1),(x,n)) [((i,j), 0)|i<-[1..x],j<-[1..n]]
 
-{-verifica se existe base na vertical-}
+{--verifica se existe base na vertical: receber a matriz m (12X12), a linha de alocacao i, o tamanho da base ext e a linha novamente para inserir --}
 verificarVertical :: Array (Int,Int) Int -> Int -> Int -> Int -> Int -> Bool
-verificarVertical m i j ext k | (i < (k + ext))&&(not((m ! (i,j)) == 0) || not((m ! (i,(j+1))) == 0) || not((m ! (i,(j-1))) == 0)) = False
-								| (i >= (k + ext)) = True 
-								|otherwise = True&&(verificarVertical m (i+1) j ext k)
-{--verifica se existe base na horizontal--}
+verificarVertical m i j ext k | (j == 1)&&(i < (k+ext))&&(not((m ! (i,j)) == 0) || not((m ! (i,(j+1))) == 0)) = False
+							  | (j > 1)&&(j < 12)&&(i < (k+ext))&&(not((m ! (i,j)) == 0) || not((m ! (i,(j+1))) == 0) || not((m ! (i,(j-1))) == 0)) = False
+							  | (j == 12)&&(i < (k+ext))&&(not((m ! (i,j)) == 0) || not((m ! (i,(j-1))) == 0)) = False
+							  | (i >= (k + ext)) = True 
+							  | otherwise = True&&(verificarVertical m (i+1) j ext k)
+{--verifica se existe base na horizontal: receber a matriz m (12X12), a linha de alocacao i, o tamanho da base ext e a coluna novamente para inserir --}
 verificarHorizontal :: Array (Int,Int) Int -> Int -> Int -> Int -> Int -> Bool
-verificarHorizontal m i j ext k | (j < (k + ext))&&(not((m ! (i,j)) == 0) || not((m ! (i+1,j)) == 0) || not((m ! (i-1,j)) == 0)) = False
+verificarHorizontal m i j ext k | (i == 1)&&(j < (k + ext))&&(not((m ! (i,j)) == 0) || not((m ! (i+1,j)) == 0)) = False
+								| (i > 1)&&(i < 12)&&(j < (k + ext))&&(not((m ! (i,j)) == 0) || not((m ! (i+1,j)) == 0) || not((m ! (i-1,j)) == 0)) = False
+								| (i == 12)&&(i < (k + ext))&&(not((m ! (i,j)) == 0) || not((m ! (i-1,j)) == 0)) = False
 								| (j >= (k + ext)) = True 
-								|otherwise = True&&(verificarHorizontal m i (j+1) ext k)
+								| otherwise = True&&(verificarHorizontal m i (j+1) ext k)
 
 {--Aloca CT com uma posicao--}
-alocarCT :: Jogador -> IO Jogador 
+alocarCT :: Jogador -> IO Jogador
 alocarCT j = do
 	linha <- randomRIO (1,12::Int)
-	coluna <- randomRIO (2,11::Int)
-	
+	coluna <- randomRIO (1,12::Int)
+	putStrLn (show(linha))
+	putStrLn (show(coluna))
 	if not(verificarVertical (tabuleiro j) linha coluna 1 linha) then
 		alocarCT j
 	else
 		return (Jogador (atualizarTabuleiro (tabuleiro j)  linha coluna 1) (bombas j) (pontuacao j))
+		
 {--Metodo responsavel por alocar todas as Bases--}
 alocarBases :: Jogador -> IO Jogador
 alocarBases j = do

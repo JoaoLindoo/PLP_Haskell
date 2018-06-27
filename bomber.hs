@@ -35,21 +35,79 @@ alocarCT :: Jogador -> IO Jogador
 alocarCT j = do
 	linha <- randomRIO (1,12::Int)
 	coluna <- randomRIO (1,12::Int)
-	putStrLn (show(linha))
-	putStrLn (show(coluna))
 	if not(verificarVertical (tabuleiro j) linha coluna 1 linha) then
 		alocarCT j
 	else
 		return (Jogador (atualizarTabuleiro (tabuleiro j)  linha coluna 1) (bombas j) (pontuacao j))
-		
-{--Metodo responsavel por alocar todas as Bases--}
+
+
+alocarIAPA :: Jogador -> IO Jogador
+alocarIAPA j = do
+	direcao <- randomRIO (1,2::Int)
+	if (direcao == 1) then do
+		linha <- randomRIO (1,11::Int)
+		coluna <- randomRIO (1,12::Int)
+		if (verificarVertical (tabuleiro j) linha coluna 2 linha) then do
+			return (Jogador (alocarBaseVertical (tabuleiro j) linha coluna 2 2 0) (bombas j) (pontuacao j))
+		else
+			alocarIAPA j
+	else do
+		linha <- randomRIO (1,12::Int)
+		coluna <- randomRIO (1,11::Int)
+		if (verificarHorizontal (tabuleiro j) linha coluna 2 coluna) then do
+			return (Jogador (alocarBaseHorizontal (tabuleiro j) linha coluna 2 2 0) (bombas j) (pontuacao j))
+		else
+			alocarIAPA j
+
+alocarBMT :: Jogador -> IO Jogador
+alocarBMT j = do
+	direcao <- randomRIO (1,2::Int)
+	if (direcao == 1) then do
+		linha <- randomRIO (1,10::Int)
+		coluna <- randomRIO (1,12::Int)
+		if (verificarVertical (tabuleiro j) linha coluna 3 linha) then do
+			return (Jogador (alocarBaseVertical (tabuleiro j) linha coluna 3 3 0) (bombas j) (pontuacao j))
+		else
+			alocarBMT j
+	else do
+		linha <- randomRIO (1,12::Int)
+		coluna <- randomRIO (1,10::Int)
+		if (verificarHorizontal (tabuleiro j) linha coluna 3 coluna) then do
+			return (Jogador (alocarBaseHorizontal (tabuleiro j) linha coluna 3 3 0) (bombas j) (pontuacao j))
+		else
+			alocarBMT j
+
+alocarBPC :: Jogador -> IO Jogador
+alocarBPC j = do
+	direcao <- randomRIO (1,2::Int)
+	if (direcao == 1) then do
+		linha <- randomRIO (1,9::Int)
+		coluna <- randomRIO (1,12::Int)
+		if (verificarVertical (tabuleiro j) linha coluna 4 linha) then do
+			return (Jogador (alocarBaseVertical (tabuleiro j) linha coluna 4 4 0) (bombas j) (pontuacao j))
+		else
+			alocarBPC j
+	else do
+		linha <- randomRIO (1,12::Int)
+		coluna <- randomRIO (1,9::Int)
+		if (verificarHorizontal (tabuleiro j) linha coluna 3 coluna) then do
+			return (Jogador (alocarBaseHorizontal (tabuleiro j) linha coluna 4 4 0) (bombas j) (pontuacao j))
+		else
+			alocarBPC j
+
+{--Metodo responsavel por alocar todas as Bases e returna o objeto jogador com todas as bases alocadas--}
 alocarBases :: Jogador -> IO Jogador
 alocarBases j = do
 	ct1 <- alocarCT j
 	ct2 <- alocarCT ct1
 	ct3 <- alocarCT ct2
 	ct4 <- alocarCT ct3
-	return ct4
+	ct5 <- alocarBPC ct4
+	ct6 <- alocarBMT ct5
+	ct7 <- alocarBMT ct6
+	ct8 <- alocarIAPA ct7
+	ct9 <- alocarIAPA ct8
+	return (ct9)
 
 
 
@@ -59,10 +117,10 @@ alocarBases j = do
 {-Metodo que cria a objeto jogador com tabuleiro 12X12-}
 criarJogador :: Int -> Int -> Jogador
 criarJogador nBombas pont = Jogador (criarMatrizZero 12 12) nBombas pont
-jogador1 = criarJogador 12 12
+
 
 {-Variavel que representar o jogado com tabuleiro vazio (apenas zero) e com 45 bombas para se jogar-}
-jogador_base = criarJogador 45
+jogadorBase = criarJogador 45 0
 
 {--alocar base na vertical de tamanho maior que 1--}
 alocarBaseVertical ::  Array (Int,Int) Int -> Int -> Int -> Int -> Int -> Int -> Array (Int,Int) Int
@@ -84,6 +142,22 @@ numeroRan v1 v2 = do
 	nR <- randomRIO(v1, v2::Int)
 	return (nR)
 
+
+jogador1 = criarJogador 12 12
+
+{--metodo que printa o tabuleiro final--}
+mostrarFinal :: Jogador -> IO()
+mostrarFinal j = do
+
+	putStrLn (showTabuleiroFinal (tabuleiro j) 1 1)
+
+{--metodo que printa o tabuleiro ao jogador--}
+mostrarJogo :: Jogador -> IO()
+mostrarJogo j = do
+	putStrLn (showTabuleiro (tabuleiro j) 1 1)	
+
+
+	
 {- Main -}    
 main :: IO()
 main = do
@@ -91,6 +165,10 @@ main = do
     putStrLn "Bem Vindo ao ano começo do fim , a gasolina está acabando e o mundo também só você poderá salva-lo e deter o virus mortal"
     putStrLn "Baseado em uma historia real. Se voce nao lembra foi por que o mundo ja foi salvo e sua linha do tempo mudou"
     putStrLn "[1] Pronto para a simulação :"
+    
+    
+
+  	
     
 
     a <- getLine

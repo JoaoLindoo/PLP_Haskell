@@ -5,17 +5,17 @@ import System.Random
 import Data.Char
 
 
-baseCT :: Char
-baseCT = '@'
+baseCT :: String
+baseCT = "@"
 
-baseIAPA :: Char
-baseIAPA = '#'
+baseIAPA :: String
+baseIAPA = "#"
 
-baseBMT :: Char
-baseBMT = 'o'
+baseBMT :: String
+baseBMT = "o"
 
-baseBPC :: Char
-baseBPC = '*'
+baseBPC :: String
+baseBPC = "*"
 
 
 {-Caracter que representa Terreno-}
@@ -70,10 +70,17 @@ baseSize = (+1)
 vertical :: Char
 vertical = 'v'
 
+{--Metodo que retorna a String do tipo de base--}
 showPosicao :: Int -> String
-showPosicao n | n == 0 = " "
-				| n == 1 = show(baseCT)
-				| n == 2 = show(baseIAPA)
-				| n == 3 = show(baseBMT)
-				| n == 4 = show(baseBPC)
-
+showPosicao n | n == 1 = baseCT
+				| n == 2 = baseIAPA
+				| n == 3 = baseBMT
+				| n == 4 = baseBPC
+				| otherwise = " "
+{--Metodo que retorna a numero da base em string--}
+showPosicaoFinal :: Int -> String
+showPosicaoFinal n | n == 1 = "1"
+					| n == 2 = "2"
+					| n == 3 = "3"
+					| n == 4 = "4"
+					| otherwise = " "

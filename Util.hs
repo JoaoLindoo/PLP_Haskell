@@ -1,21 +1,21 @@
-module Util where 
+﻿module Util where 
 import Data.Map (Map, (!))
 import qualified Data.Map as Map
 import System.Random
 import Data.Char
 
 
-baseCT :: String
-baseCT = "@"
+baseCT :: Char
+baseCT = '@'
 
-baseIAPA :: String
-baseIAPA = "#"
+baseIAPA :: Char
+baseIAPA = '#'
 
-baseBMT :: String
-baseBMT = "o"
+baseBMT :: Char
+baseBMT = 'o'
 
-baseBPC :: String
-baseBPC = "*"
+baseBPC :: Char
+baseBPC = '*'
 
 
 {-Caracter que representa Terreno-}

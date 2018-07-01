@@ -5,17 +5,17 @@ import System.Random
 import Data.Char
 
 
-baseCT :: Char
-baseCT = '@'
+baseCT :: String
+baseCT = "@"
 
-baseIAPA :: Char
-baseIAPA = '#'
+baseIAPA :: String
+baseIAPA = "#"
 
-baseBMT :: Char
-baseBMT = 'o'
+baseBMT :: String
+baseBMT = "o"
 
-baseBPC :: Char
-baseBPC = '*'
+baseBPC :: String
+baseBPC = "*"
 
 
 {-Caracter que representa Terreno-}

@@ -23,8 +23,8 @@ terreno :: Char
 terreno = '_'
 
 {-Tiro Perdido-}
-wShot :: Char
-wShot = 'X'
+wShot :: String
+wShot = "X"
 
 
 {- --------------------------------------------
@@ -76,7 +76,8 @@ showPosicao n | n == 1 = baseCT
 				| n == 2 = baseIAPA
 				| n == 3 = baseBMT
 				| n == 4 = baseBPC
-				| otherwise = " "
+				| n == -1 = wShot
+				|otherwise = " "
 {--Metodo que retorna a numero da base em string--}
 showPosicaoFinal :: Int -> String
 showPosicaoFinal n | n == 1 = "1"

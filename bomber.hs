@@ -159,21 +159,93 @@ mostrarJogo j = do
 
 	
 {- Main -}    
-main :: IO()
+
+
+
+	
+
 main = do
     tela_principal
     putStrLn "Bem Vindo ao ano começo do fim , a gasolina está acabando e o mundo também só você poderá salva-lo e deter o virus mortal"
     putStrLn "Baseado em uma historia real. Se voce nao lembra foi por que o mundo ja foi salvo e sua linha do tempo mudou"
     putStrLn "[1] Pronto para a simulação :"
     
-    
-
-  	
-    
-
     a <- getLine
    
-    if(a == "1")
-        then putStrLn "Inicia o jogo"
-        else showDerrota
-            
+    if(a == "1") then do
+    	cleanScreen
+    	jogadorTabela <- alocarBases (criarJogador 45 0)
+    	interacaoJogo (criarJogador 45 0) jogadorTabela
+    	
+        else do 
+        	cleanScreen
+        	showDerrota
+    
+
+interacaoJogo :: Jogador -> Jogador -> IO()
+interacaoJogo jaux jtabuleiro = do
+	
+	if(((pontuacao jaux) < 18) && ((bombas jaux) > 0 )) then do
+
+		
+		putStrLn "   A B C D E F G H I J K L"
+		mostrarJogo jaux
+		showMenu
+
+		putStrLn ("Numeros de Bombas:"++show(bombas jaux))
+		putStrLn ("pontuacao do Jogador:"++show(pontuacao jaux))
+		
+		putStrLn "Digite o Numero da Linha:"
+		linhaString <- getLine
+		putStrLn "Digite o Numero da Coluna:"
+		colunaString <- getLine
+	
+	
+		let linhaInt = numeroLinha linhaString
+		let colunaInt = numeroColuna colunaString
+	
+		if ((not(linhaInt == -1))&&(not(colunaInt == -1))) then
+
+			if(not(((tabuleiro jtabuleiro) ! (linhaInt, colunaInt)) == 0)) then do
+
+				if((((tabuleiro jaux) ! (linhaInt, colunaInt)) == 0)) then do
+
+					let valor = ((tabuleiro jtabuleiro) ! (linhaInt, colunaInt))
+					let jogadorAux = Jogador (atualizarTabuleiro (tabuleiro jaux) linhaInt colunaInt valor) ((bombas jaux)-1) ((pontuacao jaux)+1)
+					cleanScreen
+					interacaoJogo jogadorAux jtabuleiro
+
+				else do
+					cleanScreen
+					interacaoJogo jaux jtabuleiro
+			else do 
+				if((((tabuleiro jaux) ! (linhaInt, colunaInt)) == 0)) then do
+					cleanScreen
+					interacaoJogo (Jogador (atualizarTabuleiro (tabuleiro jaux) linhaInt colunaInt (-1)) ((bombas jaux)-1) (pontuacao jaux)) jtabuleiro
+				else do
+					cleanScreen
+					interacaoJogo (Jogador (tabuleiro jaux) (bombas jaux) (pontuacao jaux)) jtabuleiro
+
+		else do
+			cleanScreen
+			putStrLn "Linha ou coluna Invalida:"
+			interacaoJogo jaux jtabuleiro
+	else do 
+		if((pontuacao jaux) >= 18) then do
+			cleanScreen
+			mostrarFinal jtabuleiro
+			showVitoria
+		else do
+			cleanScreen
+			mostrarFinal jtabuleiro
+			showDerrota
+
+
+
+
+
+
+	
+
+
+

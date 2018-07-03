@@ -1,4 +1,4 @@
-module Util where 
+﻿module Util where 
 import Data.Map (Map, (!))
 import qualified Data.Map as Map
 import System.Random

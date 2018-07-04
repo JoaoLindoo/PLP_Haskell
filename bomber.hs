@@ -405,13 +405,7 @@ interacaoJogo jaux jtabuleiro = do
 			mostrarFinal jtabuleiro
 			showDerrota
 
-    a <- getLine
 
    
 
-    if(a == "1")
-
-        then putStrLn "Inicia o jogo"
-
-        else showDerrota
-
+    

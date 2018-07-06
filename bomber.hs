@@ -197,45 +197,23 @@ alocarBPC j = do
 alocarBases :: Jogador -> IO Jogador
 
 alocarBases j = do
-
 	ct1 <- alocarCT j
-
 	ct2 <- alocarCT ct1
-
 	ct3 <- alocarCT ct2
-
 	ct4 <- alocarCT ct3
-
 	ct5 <- alocarBPC ct4
-
 	ct6 <- alocarBMT ct5
-
 	ct7 <- alocarBMT ct6
-
 	ct8 <- alocarIAPA ct7
-
 	ct9 <- alocarIAPA ct8
-
 	return (ct9)
-
-
-
-
-
-
-
-
-
-
 
 
 
 {-Metodo que cria a objeto jogador com tabuleiro 12X12-}
 
 criarJogador :: Int -> Int -> Jogador
-
 criarJogador nBombas pont = Jogador (criarMatrizZero 12 12) nBombas pont
-
 
 
 
@@ -362,7 +340,7 @@ interacaoJogo jaux jtabuleiro = do
 		
 		putStrLn "Digite o Numero da Linha:"
 		linhaString <- getLine
-		putStrLn "Digite o Numero da Coluna:"
+		putStrLn "Digite a Letra da Coluna:"
 		colunaString <- getLine
 	
 	

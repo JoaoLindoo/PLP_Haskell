@@ -83,10 +83,8 @@ numeroLinhaAux linha | (linha == "1") = 1
 
 
 lowerString str = [ toLower loweredString | loweredString <- str]
-
 numeroLinha :: String -> Int
 numeroLinha linha = numeroLinhaAux (lowerString linha)
-
 numeroColunaAux :: String -> Int
 numeroColunaAux coluna | (coluna == "a") = 1
 				  		| (coluna == "b") = 2
